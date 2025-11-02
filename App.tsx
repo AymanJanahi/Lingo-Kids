@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Language, GameState, Category, QuizItem } from './types';
 import { UI_TEXT } from './constants';
-import { generateQuizData } from './services/geminiService';
+import { getQuizDataForCategory } from './services/quizService';
 import LanguageSwitcher from './components/LanguageSwitcher';
 import CategoryMenu from './components/CategoryMenu';
 import GameScreen from './components/GameScreen';
@@ -38,15 +38,23 @@ function App() {
   const handleSelectCategory = (category: Category) => {
     setSelectedCategory(category);
     setGameState('loading');
-    generateQuizData(category.id)
-      .then((data) => {
-        setQuizData(data);
-        setGameState('playing');
-      })
-      .catch((error) => {
-        console.error("Failed to generate quiz data:", error);
-        setGameState('error');
-      });
+    
+    // Using a timeout to make the loading screen visible for a moment for a smoother UX
+    setTimeout(() => {
+        try {
+            const data = getQuizDataForCategory(category.id);
+            if (data && data.length > 0) {
+                setQuizData(data);
+                setGameState('playing');
+            } else {
+                console.error("No quiz data returned for category:", category.id);
+                setGameState('error');
+            }
+        } catch (error) {
+            console.error("Failed to generate quiz data:", error);
+            setGameState('error');
+        }
+    }, 500);
   };
 
   const handleBackToMenu = () => {
@@ -65,9 +73,12 @@ function App() {
         if (quizData && selectedCategory) {
           return <GameScreen quizData={quizData} language={language} category={selectedCategory} onBackToMenu={handleBackToMenu} />;
         }
-        return null; // Should not happen
+        // This case should not be reached if logic is correct, but as a safeguard,
+        // render an error state directly instead of setting state during render.
+        console.error("Invalid state: gameState is 'playing' but quizData or selectedCategory is missing.");
+        return <ErrorDisplay message={UI_TEXT[language].error} onRetry={() => selectedCategory ? handleSelectCategory(selectedCategory) : handleBackToMenu()} />;
       case 'error':
-        return <ErrorDisplay message={UI_TEXT[language].error} onRetry={() => selectedCategory && handleSelectCategory(selectedCategory)} />;
+        return <ErrorDisplay message={UI_TEXT[language].error} onRetry={() => selectedCategory ? handleSelectCategory(selectedCategory) : handleBackToMenu()} />;
       default:
         return null;
     }

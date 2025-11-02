@@ -13,10 +13,9 @@ export interface QuizItem {
   english: string;
   arabic: string;
   transliteration: string;
-  imagePrompt: string;
+  imageData: string; // base64 data URL for the image
   options: {
-    arabic: string[];
-    english: string[];
+    transliterated: string[];
   };
 }
 
