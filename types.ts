@@ -14,6 +14,7 @@ export interface QuizItem {
   arabic: string;
   transliteration: string;
   imageData: string; // base64 data URL for the image
+  audioData: string; // base64 encoded audio data
   options: {
     transliterated: string[];
   };

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { QuizItem, Language, Category } from '../types';
 import { UI_TEXT } from '../constants';
-import { getArabicSpeech } from '../services/geminiService';
 
 const SoundIcon: React.FC<{ className?: string }> = ({ className }) => (
     <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -21,16 +20,9 @@ function decode(base64: string) {
   return bytes;
 }
 
-async function decodeAudioData(data: Uint8Array, ctx: AudioContext): Promise<AudioBuffer> {
-  const dataInt16 = new Int16Array(data.buffer);
-  const frameCount = dataInt16.length; // Mono channel
-  const buffer = ctx.createBuffer(1, frameCount, 24000); // 24kHz sample rate for TTS model
-
-  const channelData = buffer.getChannelData(0);
-  for (let i = 0; i < frameCount; i++) {
-    channelData[i] = dataInt16[i] / 32768.0;
-  }
-  return buffer;
+// A more generic decode function that can handle various audio formats once decoded from base64
+async function decodeAudioData(arrayBuffer: ArrayBuffer, ctx: AudioContext): Promise<AudioBuffer> {
+    return ctx.decodeAudioData(arrayBuffer);
 }
 
 
@@ -46,17 +38,19 @@ const GameScreen: React.FC<GameScreenProps> = ({ quizData, language, category, o
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [shuffledOptions, setShuffledOptions] = useState<string[]>([]);
-  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
-  const [isFetchingAudio, setIsFetchingAudio] = useState(false);
+  const [audioState, setAudioState] = useState<'idle' | 'playing'>('idle');
   
   const audioContextRef = useRef<AudioContext | null>(null);
   const currentItem = quizData[currentIndex];
 
   useEffect(() => {
     // Initialize AudioContext. It might be suspended and needs to be resumed on user interaction.
-    audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 24000 });
+    if (!audioContextRef.current) {
+        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+    }
     return () => {
-        audioContextRef.current?.close();
+        // Don't close context on re-render, but you might on unmount
+        // audioContextRef.current?.close(); 
     }
   }, []);
 
@@ -87,32 +81,28 @@ const GameScreen: React.FC<GameScreenProps> = ({ quizData, language, category, o
   };
 
   const playAudio = async () => {
-    if (isAudioPlaying || isFetchingAudio) return;
+    const base64Audio = currentItem.audioData;
+    if (!base64Audio || audioState !== 'idle' || !audioContextRef.current) return;
 
-    if (audioContextRef.current?.state === 'suspended') {
+    if (audioContextRef.current.state === 'suspended') {
       await audioContextRef.current.resume();
     }
 
-    setIsFetchingAudio(true);
+    setAudioState('playing');
     try {
-      const base64Audio = await getArabicSpeech(currentItem.arabic);
-      if (base64Audio && audioContextRef.current) {
-        const audioBuffer = await decodeAudioData(decode(base64Audio), audioContextRef.current);
+        const decodedData = decode(base64Audio);
+        const audioBuffer = await decodeAudioData(decodedData.buffer, audioContextRef.current);
         const source = audioContextRef.current.createBufferSource();
         source.buffer = audioBuffer;
         source.connect(audioContextRef.current.destination);
-        source.onended = () => setIsAudioPlaying(false);
+        source.onended = () => setAudioState('idle');
         source.start();
-        setIsAudioPlaying(true);
-      } else {
-        console.error("Failed to get audio data.");
-      }
     } catch (error) {
       console.error("Error playing audio:", error);
-    } finally {
-      setIsFetchingAudio(false);
+      setAudioState('idle'); // Reset on error
     }
   };
+
 
   const getButtonClass = (option: string) => {
     const correctAnswer = currentItem.transliteration;
@@ -174,15 +164,11 @@ const GameScreen: React.FC<GameScreenProps> = ({ quizData, language, category, o
                 <h4 className="text-6xl font-bold text-blue-600 font-['Cairo']">{currentItem.arabic}</h4>
                 <button
                   onClick={playAudio}
-                  disabled={isAudioPlaying || isFetchingAudio}
-                  className="p-2 rounded-full hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+                  disabled={!currentItem.audioData || audioState !== 'idle'}
+                  className="p-2 rounded-full hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400 transition relative flex items-center justify-center w-12 h-12 disabled:opacity-50 disabled:cursor-not-allowed"
                   aria-label="Play pronunciation"
                 >
-                  {isFetchingAudio ? (
-                    <div className="w-8 h-8 animate-spin rounded-full border-4 border-blue-200 border-t-blue-500"></div>
-                  ) : (
-                    <SoundIcon className="w-8 h-8 text-blue-500" />
-                  )}
+                  <SoundIcon className="w-8 h-8 text-blue-500" />
                 </button>
               </div>
               <div className="text-2xl text-gray-600 italic">{currentItem.transliteration}</div>
