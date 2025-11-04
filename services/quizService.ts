@@ -6,7 +6,12 @@ const shuffleArray = <T,>(array: T[]): T[] => {
 };
 
 export const getQuizDataForCategory = (categoryId: Category['id']): QuizItem[] => {
-  const items = QUIZ_BANK[categoryId];
+  if (categoryId === 'random') {
+    const allItems = Object.values(QUIZ_BANK).flat();
+    return shuffleArray(allItems).slice(0, 10); // Return 10 random items
+  }
+  
+  const items = QUIZ_BANK[categoryId as keyof typeof QUIZ_BANK];
   if (!items) {
     console.error(`No data found for category: ${categoryId}`);
     return [];

@@ -1,0 +1,33 @@
+import { QuizItem } from '../types';
+import { SVG_TEMPLATES, DUMMY_AUDIO } from './_helpers';
+
+export const alphabet: QuizItem[] = [
+  { english: 'A (Alif)', arabic: 'أ', transliteration: 'Alif', imageData: SVG_TEMPLATES.text('أ'), audioData: DUMMY_AUDIO, options: { transliterated: ['Alif', 'Ba', 'Ta', 'Tha'] } },
+  { english: 'B (Ba)', arabic: 'ب', transliteration: 'Ba', imageData: SVG_TEMPLATES.text('ب'), audioData: DUMMY_AUDIO, options: { transliterated: ['Ba', 'Alif', 'Jeem', 'Dal'] } },
+  { english: 'T (Ta)', arabic: 'ت', transliteration: 'Ta', imageData: SVG_TEMPLATES.text('ت'), audioData: DUMMY_AUDIO, options: { transliterated: ['Ta', 'Tha', 'Ba', 'Alif'] } },
+  { english: 'Th (Tha)', arabic: 'ث', transliteration: 'Tha', imageData: SVG_TEMPLATES.text('ث'), audioData: DUMMY_AUDIO, options: { transliterated: ['Tha', 'Ta', 'Jeem', 'Ha'] } },
+  { english: 'J (Jeem)', arabic: 'ج', transliteration: 'Jeem', imageData: SVG_TEMPLATES.text('ج'), audioData: DUMMY_AUDIO, options: { transliterated: ['Jeem', 'Ha', 'Kha', 'Dal'] } },
+  { english: 'H (Ha)', arabic: 'ح', transliteration: 'Ha', imageData: SVG_TEMPLATES.text('ح'), audioData: DUMMY_AUDIO, options: { transliterated: ['Ha', 'Jeem', 'Kha', 'Ayn'] } },
+  { english: 'Kh (Kha)', arabic: 'خ', transliteration: 'Kha', imageData: SVG_TEMPLATES.text('خ'), audioData: DUMMY_AUDIO, options: { transliterated: ['Kha', 'Ha', 'Jeem', 'Ghayn'] } },
+  { english: 'D (Dal)', arabic: 'د', transliteration: 'Dal', imageData: SVG_TEMPLATES.text('د'), audioData: DUMMY_AUDIO, options: { transliterated: ['Dal', 'Dhal', 'Ra', 'Zayn'] } },
+  { english: 'Dh (Dhal)', arabic: 'ذ', transliteration: 'Dhal', imageData: SVG_TEMPLATES.text('ذ'), audioData: DUMMY_AUDIO, options: { transliterated: ['Dhal', 'Dal', 'Zayn', 'Ra'] } },
+  { english: 'R (Ra)', arabic: 'ر', transliteration: 'Ra', imageData: SVG_TEMPLATES.text('ر'), audioData: DUMMY_AUDIO, options: { transliterated: ['Ra', 'Zayn', 'Dal', 'Dhal'] } },
+  { english: 'Z (Zayn)', arabic: 'ز', transliteration: 'Zayn', imageData: SVG_TEMPLATES.text('ز'), audioData: DUMMY_AUDIO, options: { transliterated: ['Zayn', 'Ra', 'Seen', 'Sheen'] } },
+  { english: 'S (Seen)', arabic: 'س', transliteration: 'Seen', imageData: SVG_TEMPLATES.text('س'), audioData: DUMMY_AUDIO, options: { transliterated: ['Seen', 'Sheen', 'Sad', 'Zayn'] } },
+  { english: 'Sh (Sheen)', arabic: 'ش', transliteration: 'Sheen', imageData: SVG_TEMPLATES.text('ش'), audioData: DUMMY_AUDIO, options: { transliterated: ['Sheen', 'Seen', 'Sad', 'Dad'] } },
+  { english: 'S (Sad)', arabic: 'ص', transliteration: 'Sad', imageData: SVG_TEMPLATES.text('ص'), audioData: DUMMY_AUDIO, options: { transliterated: ['Sad', 'Dad', 'Seen', 'Sheen'] } },
+  { english: 'D (Dad)', arabic: 'ض', transliteration: 'Dad', imageData: SVG_TEMPLATES.text('ض'), audioData: DUMMY_AUDIO, options: { transliterated: ['Dad', 'Sad', 'Ta\'', 'Dha\''] } },
+  { english: 'T (Ta\')', arabic: 'ط', transliteration: 'Ta\'', imageData: SVG_TEMPLATES.text('ط'), audioData: DUMMY_AUDIO, options: { transliterated: ['Ta\'', 'Dha\'', 'Dad', 'Sad'] } },
+  { english: 'Dh (Dha\')', arabic: 'ظ', transliteration: 'Dha\'', imageData: SVG_TEMPLATES.text('ظ'), audioData: DUMMY_AUDIO, options: { transliterated: ['Dha\'', 'Ta\'', 'Ayn', 'Ghayn'] } },
+  { english: '\' (\'Ayn)', arabic: 'ع', transliteration: '\'Ayn', imageData: SVG_TEMPLATES.text('ع'), audioData: DUMMY_AUDIO, options: { transliterated: ['\'Ayn', 'Ghayn', 'Ha', 'Alif'] } },
+  { english: 'Gh (Ghayn)', arabic: 'غ', transliteration: 'Ghayn', imageData: SVG_TEMPLATES.text('غ'), audioData: DUMMY_AUDIO, options: { transliterated: ['Ghayn', '\'Ayn', 'Kha', 'Qaf'] } },
+  { english: 'F (Fa)', arabic: 'ف', transliteration: 'Fa', imageData: SVG_TEMPLATES.text('ف'), audioData: DUMMY_AUDIO, options: { transliterated: ['Fa', 'Qaf', 'Ghayn', 'Kaf'] } },
+  { english: 'Q (Qaf)', arabic: 'ق', transliteration: 'Qaf', imageData: SVG_TEMPLATES.text('ق'), audioData: DUMMY_AUDIO, options: { transliterated: ['Qaf', 'Fa', 'Kaf', 'Lam'] } },
+  { english: 'K (Kaf)', arabic: 'ك', transliteration: 'Kaf', imageData: SVG_TEMPLATES.text('ك'), audioData: DUMMY_AUDIO, options: { transliterated: ['Kaf', 'Qaf', 'Lam', 'Meem'] } },
+  { english: 'L (Lam)', arabic: 'ل', transliteration: 'Lam', imageData: SVG_TEMPLATES.text('ل'), audioData: DUMMY_AUDIO, options: { transliterated: ['Lam', 'Kaf', 'Meem', 'Noon'] } },
+  { english: 'M (Meem)', arabic: 'م', transliteration: 'Meem', imageData: SVG_TEMPLATES.text('م'), audioData: DUMMY_AUDIO, options: { transliterated: ['Meem', 'Noon', 'Lam', 'Waw'] } },
+  { english: 'N (Noon)', arabic: 'ن', transliteration: 'Noon', imageData: SVG_TEMPLATES.text('ن'), audioData: DUMMY_AUDIO, options: { transliterated: ['Noon', 'Meem', 'Ha\'', 'Ya'] } },
+  { english: 'H (Ha\')', arabic: 'ه', transliteration: 'Ha\'', imageData: SVG_TEMPLATES.text('ه'), audioData: DUMMY_AUDIO, options: { transliterated: ['Ha\'', 'Waw', 'Ya', 'Ta'] } },
+  { english: 'W (Waw)', arabic: 'و', transliteration: 'Waw', imageData: SVG_TEMPLATES.text('و'), audioData: DUMMY_AUDIO, options: { transliterated: ['Waw', 'Ya', 'Ha\'', 'Ra'] } },
+  { english: 'Y (Ya)', arabic: 'ي', transliteration: 'Ya', imageData: SVG_TEMPLATES.text('ي'), audioData: DUMMY_AUDIO, options: { transliterated: ['Ya', 'Waw', 'Alif', 'Noon'] } },
+];

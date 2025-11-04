@@ -1,0 +1,30 @@
+import { QuizItem } from '../types';
+import { SVG_TEMPLATES, DUMMY_AUDIO } from './_helpers';
+
+export const animals: QuizItem[] = [
+  { english: 'Elephant', arabic: 'فيل', transliteration: 'Feel', imageData: SVG_TEMPLATES.emoji('🐘'), audioData: DUMMY_AUDIO, options: { transliterated: ['Feel', 'Asad', 'Qitt', 'Kalb'] } },
+  { english: 'Lion', arabic: 'أسد', transliteration: 'Asad', imageData: SVG_TEMPLATES.emoji('🦁'), audioData: DUMMY_AUDIO, options: { transliterated: ['Asad', 'Namer', 'Dab', 'Feel'] } },
+  { english: 'Cat', arabic: 'قط', transliteration: 'Qitt', imageData: SVG_TEMPLATES.emoji('🐈'), audioData: DUMMY_AUDIO, options: { transliterated: ['Qitt', 'Kalb', 'Asad', 'Feel'] } },
+  { english: 'Dog', arabic: 'كلب', transliteration: 'Kalb', imageData: SVG_TEMPLATES.emoji('🐕'), audioData: DUMMY_AUDIO, options: { transliterated: ['Kalb', 'Qitt', 'Dab', 'Namer'] } },
+  { english: 'Bear', arabic: 'دب', transliteration: 'Dab', imageData: SVG_TEMPLATES.emoji('🐻'), audioData: DUMMY_AUDIO, options: { transliterated: ['Dab', 'Kalb', 'Feel', 'Asad'] } },
+  { english: 'Monkey', arabic: 'قرد', transliteration: 'Qird', imageData: SVG_TEMPLATES.emoji('🐒'), audioData: DUMMY_AUDIO, options: { transliterated: ['Qird', 'Zarafa', 'Arnab', 'Asad'] } },
+  { english: 'Giraffe', arabic: 'زرافة', transliteration: 'Zarafa', imageData: SVG_TEMPLATES.emoji('🦒'), audioData: DUMMY_AUDIO, options: { transliterated: ['Zarafa', 'Feel', 'Qird', 'Hisan'] } },
+  { english: 'Tiger', arabic: 'نمر', transliteration: 'Namer', imageData: SVG_TEMPLATES.emoji('🐅'), audioData: DUMMY_AUDIO, options: { transliterated: ['Namer', 'Asad', 'Kalb', 'Dab'] } },
+  { english: 'Rabbit', arabic: 'أرنب', transliteration: 'Arnab', imageData: SVG_TEMPLATES.emoji('🐇'), audioData: DUMMY_AUDIO, options: { transliterated: ['Arnab', 'Qitt', 'Fa\'r', 'Batta'] } },
+  { english: 'Duck', arabic: 'بطة', transliteration: 'Batta', imageData: SVG_TEMPLATES.emoji('🦆'), audioData: DUMMY_AUDIO, options: { transliterated: ['Batta', 'Dajaja', 'Ta\'ir', 'Booma'] } },
+  { english: 'Horse', arabic: 'حصان', transliteration: 'Hisan', imageData: SVG_TEMPLATES.emoji('🐎'), audioData: DUMMY_AUDIO, options: { transliterated: ['Hisan', 'Baqara', 'Jamal', 'Ghazal'] } },
+  { english: 'Cow', arabic: 'بقرة', transliteration: 'Baqara', imageData: SVG_TEMPLATES.emoji('🐄'), audioData: DUMMY_AUDIO, options: { transliterated: ['Baqara', 'Kharuf', 'Hisan', 'Jamal'] } },
+  { english: 'Sheep', arabic: 'خروف', transliteration: 'Kharuf', imageData: SVG_TEMPLATES.emoji('🐑'), audioData: DUMMY_AUDIO, options: { transliterated: ['Kharuf', 'Baqara', 'Dajaja', 'Ghazal'] } },
+  { english: 'Chicken', arabic: 'دجاجة', transliteration: 'Dajaja', imageData: SVG_TEMPLATES.emoji('🐓'), audioData: DUMMY_AUDIO, options: { transliterated: ['Dajaja', 'Batta', 'Ta\'ir', 'Booma'] } },
+  { english: 'Fish', arabic: 'سمكة', transliteration: 'Samaka', imageData: SVG_TEMPLATES.emoji('🐟'), audioData: DUMMY_AUDIO, options: { transliterated: ['Samaka', 'Difda', 'Sulahfah', 'Thu\'ban'] } },
+  { english: 'Frog', arabic: 'ضفدع', transliteration: 'Difda', imageData: SVG_TEMPLATES.emoji('🐸'), audioData: DUMMY_AUDIO, options: { transliterated: ['Difda', 'Samaka', 'Thu\'ban', 'Sulahfah'] } },
+  { english: 'Snake', arabic: 'ثعبان', transliteration: 'Thu\'ban', imageData: SVG_TEMPLATES.emoji('🐍'), audioData: DUMMY_AUDIO, options: { transliterated: ['Thu\'ban', 'Difda', 'Sulahfah', 'Arnab'] } },
+  { english: 'Bird', arabic: 'طائر', transliteration: 'Ta\'ir', imageData: SVG_TEMPLATES.emoji('🐦'), audioData: DUMMY_AUDIO, options: { transliterated: ['Ta\'ir', 'Booma', 'Batta', 'Dajaja'] } },
+  { english: 'Turtle', arabic: 'سلحفاة', transliteration: 'Sulahfah', imageData: SVG_TEMPLATES.emoji('🐢'), audioData: DUMMY_AUDIO, options: { transliterated: ['Sulahfah', 'Difda', 'Samaka', 'Thu\'ban'] } },
+  { english: 'Camel', arabic: 'جمل', transliteration: 'Jamal', imageData: SVG_TEMPLATES.emoji('🐪'), audioData: DUMMY_AUDIO, options: { transliterated: ['Jamal', 'Hisan', 'Baqara', 'Ghazal'] } },
+  { english: 'Fox', arabic: 'ثعلب', transliteration: 'Tha\'lab', imageData: SVG_TEMPLATES.emoji('🦊'), audioData: DUMMY_AUDIO, options: { transliterated: ['Tha\'lab', 'Dhi\'b', 'Kalb', 'Fa\'r'] } },
+  { english: 'Deer', arabic: 'غزال', transliteration: 'Ghazal', imageData: SVG_TEMPLATES.emoji('🦌'), audioData: DUMMY_AUDIO, options: { transliterated: ['Ghazal', 'Hisan', 'Jamal', 'Kharuf'] } },
+  { english: 'Wolf', arabic: 'ذئب', transliteration: 'Dhi\'b', imageData: SVG_TEMPLATES.emoji('🐺'), audioData: DUMMY_AUDIO, options: { transliterated: ['Dhi\'b', 'Kalb', 'Tha\'lab', 'Asad'] } },
+  { english: 'Mouse', arabic: 'فأر', transliteration: 'Fa\'r', imageData: SVG_TEMPLATES.emoji('🐁'), audioData: DUMMY_AUDIO, options: { transliterated: ['Fa\'r', 'Qitt', 'Arnab', 'Kalb'] } },
+  { english: 'Owl', arabic: 'بومة', transliteration: 'Booma', imageData: SVG_TEMPLATES.emoji('🦉'), audioData: DUMMY_AUDIO, options: { transliterated: ['Booma', 'Ta\'ir', 'Dajaja', 'Batta'] } },
+];
