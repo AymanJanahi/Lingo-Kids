@@ -27,4 +27,13 @@ export const animals: QuizItem[] = [
   { english: 'Wolf', arabic: 'ذئب', transliteration: 'Dhi\'b', imageData: SVG_TEMPLATES.emoji('🐺'), audioData: DUMMY_AUDIO, options: { transliterated: ['Dhi\'b', 'Kalb', 'Tha\'lab', 'Asad'] } },
   { english: 'Mouse', arabic: 'فأر', transliteration: 'Fa\'r', imageData: SVG_TEMPLATES.emoji('🐁'), audioData: DUMMY_AUDIO, options: { transliterated: ['Fa\'r', 'Qitt', 'Arnab', 'Kalb'] } },
   { english: 'Owl', arabic: 'بومة', transliteration: 'Booma', imageData: SVG_TEMPLATES.emoji('🦉'), audioData: DUMMY_AUDIO, options: { transliterated: ['Booma', 'Ta\'ir', 'Dajaja', 'Batta'] } },
+  { english: 'Dolphin', arabic: 'دلفين', transliteration: 'Dulfin', imageData: SVG_TEMPLATES.emoji('🐬'), audioData: DUMMY_AUDIO, options: { transliterated: ['Dulfin', 'Hoot', 'Qirsh', 'Samaka'] } },
+  { english: 'Whale', arabic: 'حوت', transliteration: 'Hoot', imageData: SVG_TEMPLATES.emoji('🐋'), audioData: DUMMY_AUDIO, options: { transliterated: ['Hoot', 'Dulfin', 'Samaka', 'Qirsh'] } },
+  { english: 'Shark', arabic: 'قرش', transliteration: 'Qirsh', imageData: SVG_TEMPLATES.emoji('🦈'), audioData: DUMMY_AUDIO, options: { transliterated: ['Qirsh', 'Hoot', 'Dulfin', 'Ukhtubut'] } },
+  { english: 'Octopus', arabic: 'أخطبوط', transliteration: 'Ukhtubut', imageData: SVG_TEMPLATES.emoji('🐙'), audioData: DUMMY_AUDIO, options: { transliterated: ['Ukhtubut', 'qabqab', 'Samaka', 'Qirsh'] } },
+  { english: 'Crab', arabic: 'قبقب', transliteration: 'qabqab', imageData: SVG_TEMPLATES.emoji('🦀'), audioData: DUMMY_AUDIO, options: { transliterated: ['qabqab', 'Ukhtubut', 'Samaka', 'Difda'] } },
+  { english: 'Butterfly', arabic: 'فراشة', transliteration: 'Farasha', imageData: SVG_TEMPLATES.emoji('🦋'), audioData: DUMMY_AUDIO, options: { transliterated: ['Farasha', 'Nahla', 'Namla', 'Ta\'ir'] } },
+  { english: 'Bee', arabic: 'نحلة', transliteration: 'Nahla', imageData: SVG_TEMPLATES.emoji('🐝'), audioData: DUMMY_AUDIO, options: { transliterated: ['Nahla', 'Farasha', 'Du\'suqa', 'Ankabut'] } },
+  { english: 'Spider', arabic: 'عنكبوت', transliteration: 'Ankabut', imageData: SVG_TEMPLATES.emoji('🕷️'), audioData: DUMMY_AUDIO, options: { transliterated: ['Ankabut', 'Namla', 'Nahla', 'Farasha'] } },
+  { english: 'Ant', arabic: 'نملة', transliteration: 'Namla', imageData: SVG_TEMPLATES.emoji('🐜'), audioData: DUMMY_AUDIO, options: { transliterated: ['Namla', 'Ankabut', 'Nahla', 'Du\'suqa'] } },
 ];

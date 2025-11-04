@@ -9,22 +9,6 @@ const SoundIcon: React.FC<{ className?: string }> = ({ className }) => (
     </svg>
 );
 
-// Helper functions for audio decoding
-function decode(base64: string) {
-  const binaryString = atob(base64);
-  const len = binaryString.length;
-  const bytes = new Uint8Array(len);
-  for (let i = 0; i < len; i++) {
-    bytes[i] = binaryString.charCodeAt(i);
-  }
-  return bytes;
-}
-
-// A more generic decode function that can handle various audio formats once decoded from base64
-async function decodeAudioData(arrayBuffer: ArrayBuffer, ctx: AudioContext): Promise<AudioBuffer> {
-    return ctx.decodeAudioData(arrayBuffer);
-}
-
 
 interface GameScreenProps {
   quizData: QuizItem[];
@@ -40,19 +24,8 @@ const GameScreen: React.FC<GameScreenProps> = ({ quizData, language, category, o
   const [shuffledOptions, setShuffledOptions] = useState<string[]>([]);
   const [audioState, setAudioState] = useState<'idle' | 'playing'>('idle');
   
-  const audioContextRef = useRef<AudioContext | null>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const currentItem = quizData[currentIndex];
-
-  useEffect(() => {
-    // Initialize AudioContext. It might be suspended and needs to be resumed on user interaction.
-    if (!audioContextRef.current) {
-        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
-    }
-    return () => {
-        // Don't close context on re-render, but you might on unmount
-        // audioContextRef.current?.close(); 
-    }
-  }, []);
 
   const shuffleArray = useCallback(<T,>(array: T[]): T[] => {
     return [...array].sort(() => Math.random() - 0.5);
@@ -80,27 +53,26 @@ const GameScreen: React.FC<GameScreenProps> = ({ quizData, language, category, o
     }
   };
 
-  const playAudio = async () => {
+  const playAudio = () => {
     const base64Audio = currentItem.audioData;
-    if (!base64Audio || audioState !== 'idle' || !audioContextRef.current) return;
+    if (!base64Audio || !audioRef.current || audioState === 'playing') return;
 
-    if (audioContextRef.current.state === 'suspended') {
-      await audioContextRef.current.resume();
+    let mimeType = 'audio/mpeg'; // Default to mpeg
+    // Check the start of the base64 string for magic numbers
+    if (base64Audio.startsWith('UklGR')) { // RIFF header for WAV
+        mimeType = 'audio/wav';
+    } else if (base64Audio.startsWith('SUQz')) { // ID3 header for MP3
+        mimeType = 'audio/mpeg';
     }
 
+    const audioSrc = `data:${mimeType};base64,${base64Audio}`;
+    
     setAudioState('playing');
-    try {
-        const decodedData = decode(base64Audio);
-        const audioBuffer = await decodeAudioData(decodedData.buffer, audioContextRef.current);
-        const source = audioContextRef.current.createBufferSource();
-        source.buffer = audioBuffer;
-        source.connect(audioContextRef.current.destination);
-        source.onended = () => setAudioState('idle');
-        source.start();
-    } catch (error) {
+    audioRef.current.src = audioSrc;
+    audioRef.current.play().catch(error => {
       console.error("Error playing audio:", error);
       setAudioState('idle'); // Reset on error
-    }
+    });
   };
 
 
@@ -123,6 +95,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ quizData, language, category, o
 
   return (
     <div className="w-full max-w-4xl mx-auto">
+      <audio ref={audioRef} onEnded={() => setAudioState('idle')} hidden />
       <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-6 md:p-10">
         <div className="relative mb-6">
           <p className="text-xl font-bold text-gray-600">{category.name[language]}</p>
