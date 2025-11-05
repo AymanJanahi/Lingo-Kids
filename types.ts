@@ -1,7 +1,7 @@
 export type Language = 'en' | 'ar';
 
 export interface Category {
-  id: 'numbers' | 'alphabet' | 'animals' | 'colors' | 'objects' | 'food' | 'family' | 'body' | 'clothing' | 'weather' | 'random';
+  id: 'numbers' | 'alphabet' | 'animals' | 'colors' | 'objects' | 'food' | 'family' | 'body' | 'clothing' | 'weather' | 'shapes' | 'actions' | 'places' | 'random';
   name: {
     en: string;
     ar: string;

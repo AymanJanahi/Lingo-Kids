@@ -6,9 +6,11 @@ const shuffleArray = <T,>(array: T[]): T[] => {
 };
 
 export const getQuizDataForCategory = (categoryId: Category['id']): QuizItem[] => {
+  const QUIZ_LENGTH = 10;
+
   if (categoryId === 'random') {
     const allItems = Object.values(QUIZ_BANK).flat();
-    return shuffleArray(allItems).slice(0, 10); // Return 10 random items
+    return shuffleArray(allItems).slice(0, QUIZ_LENGTH); // Return 10 random items
   }
   
   const items = QUIZ_BANK[categoryId as keyof typeof QUIZ_BANK];
@@ -16,6 +18,6 @@ export const getQuizDataForCategory = (categoryId: Category['id']): QuizItem[] =
     console.error(`No data found for category: ${categoryId}`);
     return [];
   }
-  // Shuffle the items for the category and return 5 for the game
-  return shuffleArray(items).slice(0, 5);
+  // Shuffle the items for the category and return 10 for the game
+  return shuffleArray(items).slice(0, QUIZ_LENGTH);
 };

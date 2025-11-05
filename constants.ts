@@ -1,18 +1,4 @@
-import { Category, Language } from './types';
-
-export const CATEGORIES: Category[] = [
-  { id: 'numbers', name: { en: 'Numbers', ar: 'الأرقام' }, icon: '🔢' },
-  { id: 'alphabet', name: { en: 'Alphabet', ar: 'الحروف الأبجدية' }, icon: '🔤' },
-  { id: 'animals', name: { en: 'Animals', ar: 'الحيوانات' }, icon: '🐘' },
-  { id: 'colors', name: { en: 'Colors', ar: 'الألوان' }, icon: '🎨' },
-  { id: 'objects', name: { en: 'Objects', ar: 'الأشياء' }, icon: '🧸' },
-  { id: 'food', name: { en: 'Food & Drink', ar: 'الطعام والشراب' }, icon: '🍎' },
-  { id: 'family', name: { en: 'Family', ar: 'العائلة' }, icon: '👨‍👩‍👧‍👦' },
-  { id: 'body', name: { en: 'Body Parts', ar: 'أجزاء الجسم' }, icon: '💪' },
-  { id: 'clothing', name: { en: 'Clothing', ar: 'الملابس' }, icon: '👕' },
-  { id: 'weather', name: { en: 'Weather', ar: 'الطقس' }, icon: '☀️' },
-  { id: 'random', name: { en: 'Random', ar: 'عشوائي' }, icon: '🎲' },
-];
+import { Language } from './types';
 
 export const UI_TEXT: Record<Language, Record<string, string>> = {
   en: {
@@ -25,7 +11,10 @@ export const UI_TEXT: Record<Language, Record<string, string>> = {
     next: "Next",
     error: "Oops! Something went wrong. Please try again.",
     generatingImage: "Drawing a picture...",
-    generatingAudio: "Getting sound..."
+    generatingAudio: "Getting sound...",
+    score: "Score",
+    roundComplete: "Round Complete!",
+    yourScore: "Your Score",
   },
   ar: {
     title: "أطفال لينجو",
@@ -37,6 +26,9 @@ export const UI_TEXT: Record<Language, Record<string, string>> = {
     next: "التالي",
     error: "عفوًا! حدث خطأ ما. يرجى المحاولة مرة أخرى.",
     generatingImage: "نرسم صورة...",
-    generatingAudio: "نجلب الصوت..."
+    generatingAudio: "نجلب الصوت...",
+    score: "النتيجة",
+    roundComplete: "انتهت الجولة!",
+    yourScore: "نتيجتك",
   }
 };

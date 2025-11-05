@@ -1,6 +1,7 @@
 import React from 'react';
 import { Category, Language } from '../types';
-import { CATEGORIES, UI_TEXT } from '../constants';
+import { UI_TEXT } from '../constants';
+import { CATEGORIES } from '../data/categories';
 
 interface CategoryMenuProps {
   language: Language;

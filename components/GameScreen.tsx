@@ -23,6 +23,8 @@ const GameScreen: React.FC<GameScreenProps> = ({ quizData, language, category, o
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [shuffledOptions, setShuffledOptions] = useState<string[]>([]);
   const [audioState, setAudioState] = useState<'idle' | 'playing'>('idle');
+  const [score, setScore] = useState(0);
+  const [isFinished, setIsFinished] = useState(false);
   
   const audioRef = useRef<HTMLAudioElement>(null);
   const currentItem = quizData[currentIndex];
@@ -34,22 +36,29 @@ const GameScreen: React.FC<GameScreenProps> = ({ quizData, language, category, o
   useEffect(() => {
     setSelectedAnswer(null);
     setIsCorrect(null);
-    setShuffledOptions(shuffleArray(currentItem.options.transliterated));
+    if (currentItem) {
+      setShuffledOptions(shuffleArray(currentItem.options.transliterated));
+    }
   }, [currentIndex, currentItem, shuffleArray]);
 
   const handleAnswer = (answer: string) => {
     if (selectedAnswer) return;
 
     const correctAnswer = currentItem.transliteration;
+    const isAnswerCorrect = answer === correctAnswer;
     setSelectedAnswer(answer);
-    setIsCorrect(answer === correctAnswer);
+    setIsCorrect(isAnswerCorrect);
+
+    if (isAnswerCorrect) {
+      setScore(prevScore => prevScore + 1);
+    }
   };
 
   const handleNext = () => {
     if (currentIndex < quizData.length - 1) {
       setCurrentIndex(currentIndex + 1);
     } else {
-      onBackToMenu();
+      setIsFinished(true);
     }
   };
 
@@ -80,16 +89,35 @@ const GameScreen: React.FC<GameScreenProps> = ({ quizData, language, category, o
     const correctAnswer = currentItem.transliteration;
     if (selectedAnswer) {
       if (option === correctAnswer) {
-        return 'bg-green-500 hover:bg-green-500 text-white';
+        return 'bg-green-500 text-white animate-pop';
       }
       if (option === selectedAnswer) {
-        return 'bg-red-500 hover:bg-red-500 text-white';
+        return 'bg-red-500 text-white animate-shake';
       }
       return 'bg-gray-300 text-gray-500 cursor-not-allowed';
     }
-    return 'bg-white hover:bg-yellow-100 text-blue-800';
+    return 'bg-white hover:bg-yellow-100 text-blue-800 hover:-translate-y-1 active:scale-95';
   };
   
+  if (isFinished) {
+    return (
+      <div className="w-full max-w-2xl mx-auto text-center animate-fade-in-up">
+        <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-6 md:p-10">
+          <h2 className="text-4xl font-bold mb-4 text-blue-800">{UI_TEXT[language].roundComplete}</h2>
+          <p className="text-6xl mb-6">
+            {score > quizData.length * 0.7 ? '🎉' : score > quizData.length * 0.4 ? '😊' : '🤔'}
+          </p>
+          <p className="text-3xl mb-8 text-gray-700 font-bold">
+            {UI_TEXT[language].yourScore}: <span className="text-blue-600">{score} / {quizData.length}</span>
+          </p>
+          <button onClick={onBackToMenu} className="bg-blue-500 hover:bg-blue-600 text-white font-bold text-2xl py-3 px-10 rounded-full shadow-lg transition-transform transform hover:scale-105">
+            {UI_TEXT[language].backToMenu}
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   const promptText = language === 'ar' ? currentItem.arabic : currentItem.english;
   const promptFont = language === 'ar' ? "font-['Cairo']" : '';
 
@@ -97,12 +125,23 @@ const GameScreen: React.FC<GameScreenProps> = ({ quizData, language, category, o
     <div className="w-full max-w-4xl mx-auto">
       <audio ref={audioRef} onEnded={() => setAudioState('idle')} hidden />
       <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-6 md:p-10">
-        <div className="relative mb-6">
-          <p className="text-xl font-bold text-gray-600">{category.name[language]}</p>
-          <button onClick={onBackToMenu} className="absolute top-0 rtl:left-0 ltr:right-0 text-gray-500 hover:text-blue-500 transition-colors">
+        <div className="relative mb-4">
+           <div className="flex justify-between items-center mb-4">
+             <p className="text-xl font-bold text-gray-600">{category.name[language]} ({currentIndex + 1}/{quizData.length})</p>
+             <p className="text-xl font-bold text-blue-800">{UI_TEXT[language].score}: {score}</p>
+          </div>
+          <button onClick={onBackToMenu} className="absolute -top-1 rtl:left-0 ltr:right-0 text-gray-500 hover:text-blue-500 transition-colors text-sm">
             {UI_TEXT[language].backToMenu}
           </button>
         </div>
+        
+        <div className="w-full bg-gray-300 rounded-full h-3 mb-6 shadow-inner">
+          <div
+            className="bg-yellow-400 h-3 rounded-full transition-all duration-300"
+            style={{ width: `${((currentIndex + 1) / quizData.length) * 100}%` }}
+          />
+        </div>
+
 
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div className="aspect-square bg-gray-100 rounded-2xl flex items-center justify-center p-4">
@@ -118,7 +157,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ quizData, language, category, o
                 key={option}
                 onClick={() => handleAnswer(option)}
                 disabled={!!selectedAnswer}
-                className={`w-full text-2xl font-bold p-4 rounded-xl shadow-md transition-all duration-300 ${getButtonClass(option)}`}
+                className={`w-full text-2xl font-bold p-4 rounded-xl shadow-md transition-all duration-300 transform ${getButtonClass(option)}`}
               >
                 {option}
               </button>

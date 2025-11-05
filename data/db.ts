@@ -10,6 +10,9 @@ import { family } from './family';
 import { body } from './body';
 import { clothing } from './clothing';
 import { weather } from './weather';
+import { shapes } from './shapes';
+import { actions } from './actions';
+import { places } from './places';
 
 type QuizBank = Omit<Record<Category['id'], QuizItem[]>, 'random'>;
 
@@ -24,4 +27,7 @@ export const QUIZ_BANK: QuizBank = {
   body,
   clothing,
   weather,
+  shapes,
+  actions,
+  places,
 };
