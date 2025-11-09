@@ -1,3 +1,4 @@
+// Fix: Add the missing 'Language' type definition.
 export type Language = 'en' | 'ar';
 
 export interface Category {

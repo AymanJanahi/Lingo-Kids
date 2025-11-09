@@ -1,6 +1,4 @@
-import { Language } from './types';
-
-export const UI_TEXT: Record<Language, Record<string, string>> = {
+export const UI_TEXT = {
   en: {
     title: "Lingo Kids",
     chooseCategory: "Choose a Category",
@@ -15,20 +13,5 @@ export const UI_TEXT: Record<Language, Record<string, string>> = {
     score: "Score",
     roundComplete: "Round Complete!",
     yourScore: "Your Score",
-  },
-  ar: {
-    title: "أطفال لينجو",
-    chooseCategory: "اختر فئة",
-    loading: "نجهز لعبتك...",
-    backToMenu: "العودة للقائمة",
-    correct: "صحيح!",
-    wrong: "حاول مرة أخرى!",
-    next: "التالي",
-    error: "عفوًا! حدث خطأ ما. يرجى المحاولة مرة أخرى.",
-    generatingImage: "نرسم صورة...",
-    generatingAudio: "نجلب الصوت...",
-    score: "النتيجة",
-    roundComplete: "انتهت الجولة!",
-    yourScore: "نتيجتك",
   }
 };

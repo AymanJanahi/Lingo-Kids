@@ -1,5 +1,6 @@
 import React from 'react';
 import { Language } from '../types';
+import { soundService } from '../services/soundService';
 
 interface LanguageSwitcherProps {
   language: Language;
@@ -8,6 +9,7 @@ interface LanguageSwitcherProps {
 
 const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ language, setLanguage }) => {
   const toggleLanguage = () => {
+    soundService.playClick();
     setLanguage(language === 'en' ? 'ar' : 'en');
   };
 
